@@ -525,67 +525,298 @@
         font: 700 1.4rem var(--display);
         margin: 2rem 0 0.8rem;
       }
-      .tips {
+      .steps {
+        counter-reset: s;
+        list-style: none;
         margin: 0;
-        padding-left: 1.2rem;
+        padding: 0;
         display: grid;
-        gap: 0.7rem;
+        gap: 0.9rem;
+      }
+      .steps li {
+        counter-increment: s;
+        --c: #d9b76c;
+        position: relative;
+        padding: 1.1rem 1.2rem 1.1rem 4.6rem;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-left: 3px solid var(--c);
+        background: linear-gradient(
+          160deg,
+          color-mix(in srgb, var(--c) 14%, transparent),
+          rgba(255, 255, 255, 0.02)
+        );
         color: var(--muted);
-        font-size: 0.97rem;
+        font-size: 0.96rem;
+        line-height: 1.55;
+        transition:
+          transform 0.25s ease,
+          border-color 0.3s;
       }
-      .tips li::marker {
-        color: var(--gold);
+      .steps li:hover {
+        transform: translateX(4px);
+        border-color: var(--c);
       }
-      .tips strong {
-        color: var(--ivory);
+      .steps li::before {
+        content: counter(s, decimal-leading-zero);
+        position: absolute;
+        left: 1.1rem;
+        top: 1.05rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        font: 700 1rem var(--display);
+        color: #1a1230;
+        background: var(--c);
+        box-shadow: 0 8px 22px -8px var(--c);
       }
-      .tips code {
+      .steps li:nth-child(4n + 2) {
+        --c: #8b6cf0;
+      }
+      .steps li:nth-child(4n + 3) {
+        --c: #e0568f;
+      }
+      .steps li:nth-child(4n + 4) {
+        --c: #3fcfb4;
+      }
+      .steps strong {
+        display: block;
+        margin-bottom: 0.2rem;
+        color: var(--c);
+        font: 700 1.1rem var(--display);
+      }
+      .steps code {
         color: var(--gold-hi);
       }
 
       /* Fenêtre de paiement */
-.modal [hidden],.sess[hidden]{display:none!important}
-/* Fenêtre (modale) */
-.modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:1rem;
-  background:rgba(10,6,24,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s}
-.modal.open{opacity:1;visibility:visible}
-.modal .box{position:relative;width:min(640px,100%);max-height:92vh;overflow:auto;
-  border-radius:22px;padding:2.2rem 2rem 2rem;border:1px solid rgba(217,183,108,.55);
-  background:linear-gradient(160deg,rgba(217,183,108,.14),rgba(91,47,208,.14)),rgba(18,12,40,.92);
-  box-shadow:0 40px 100px -30px rgba(217,183,108,.45);
-  transform:translateY(24px) scale(.97);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
-.modal.open .box{transform:none}
-.modal h2{font:700 1.9rem/1.1 var(--display);margin:0 0 1.2rem;padding-right:2.5rem}
-.x{position:absolute;top:1rem;right:1rem;width:40px;height:40px;border-radius:50%;cursor:pointer;
-  border:1px solid var(--line);background:transparent;color:var(--ivory);font-size:1.3rem;line-height:1}
-.x:hover{border-color:var(--gold);color:var(--gold-hi)}
-body.lock{overflow:hidden}
-.sess{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1.2rem;padding:.7rem 1rem;border:1px solid var(--line);border-radius:14px;background:rgba(10,6,24,.6);color:var(--muted);font-weight:600;font-size:.95rem}
-.sess b{color:var(--gold-hi);font:700 1.3rem ui-monospace,Consolas,monospace}
-.sess.low b{color:#ff8fa8}
-.dots{display:flex;gap:.5rem;margin:0 0 1.4rem;padding:0;list-style:none;color:var(--muted);font-size:.88rem;flex-wrap:wrap}
-.dots li{padding:.25rem .8rem;border:1px solid var(--line);border-radius:999px}
-.dots li.on{color:#1a1230;background:var(--gold);border-color:var(--gold);font-weight:700}
-.step[hidden]{display:none}
-.step h3{font:700 1.3rem var(--display);margin:0 0 1rem}
-.choices{display:grid;gap:.7rem;margin:0 0 1.2rem}
-.choice{display:flex;justify-content:space-between;gap:1rem;padding:1rem 1.1rem;border:1px solid var(--line);border-radius:14px;cursor:pointer;background:rgba(10,6,24,.5);transition:border-color .2s}
-.choice:hover{border-color:rgba(217,183,108,.6)}
-.choice:has(input:checked){border-color:var(--gold);background:rgba(217,183,108,.12)}
-.choice input{accent-color:var(--gold)}
-.choice b{color:var(--gold-hi);font-family:var(--display)}
-.field{display:grid;gap:.35rem;margin:0 0 1rem;color:var(--muted);font-weight:600;font-size:.95rem}
-.field input,.field textarea{font:400 1rem var(--body);color:var(--ivory);padding:.85rem 1rem;border-radius:12px;border:1px solid var(--line);background:rgba(10,6,24,.7);width:100%}
-.field input:focus,.field textarea:focus{outline:2px solid var(--gold);border-color:var(--gold)}
-.err{color:#ff8fa8;font-weight:600;min-height:1.4em;margin:.2rem 0 .6rem}
-.chk{display:flex;gap:.7rem;align-items:flex-start;color:var(--muted);font-size:.95rem;margin:0 0 1rem}
-.chk input{margin-top:.3rem;accent-color:var(--gold)}
-.recap{margin:0 0 1.2rem;display:grid;grid-template-columns:auto 1fr;gap:.4rem 1.6rem}
-.recap dt{color:var(--muted)} .recap dd{margin:0;font-weight:700}
-.ok{border:1px solid var(--gold);border-radius:16px;padding:1.4rem;background:rgba(217,183,108,.1)}
-.ok h3{color:var(--gold-hi)} .ok p{margin:.5rem 0}
-.btn:disabled{opacity:.6;cursor:wait}
+      .modal [hidden],
+      .sess[hidden] {
+        display: none !important;
+      }
+      /* Fenêtre (modale) */
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: grid;
+        place-items: center;
+        padding: 1rem;
+        background: rgba(10, 6, 24, 0.72);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.35s ease,
+          visibility 0.35s;
+      }
+      .modal.open {
+        opacity: 1;
+        visibility: visible;
+      }
+      .modal .box {
+        position: relative;
+        width: min(640px, 100%);
+        max-height: 92vh;
+        overflow: auto;
+        border-radius: 22px;
+        padding: 2.2rem 2rem 2rem;
+        border: 1px solid rgba(217, 183, 108, 0.55);
+        background:
+          linear-gradient(
+            160deg,
+            rgba(217, 183, 108, 0.14),
+            rgba(91, 47, 208, 0.14)
+          ),
+          rgba(18, 12, 40, 0.92);
+        box-shadow: 0 40px 100px -30px rgba(217, 183, 108, 0.45);
+        transform: translateY(24px) scale(0.97);
+        transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .modal.open .box {
+        transform: none;
+      }
+      .modal h2 {
+        font: 700 1.9rem/1.1 var(--display);
+        margin: 0 0 1.2rem;
+        padding-right: 2.5rem;
+      }
+      .x {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 1px solid var(--line);
+        background: transparent;
+        color: var(--ivory);
+        font-size: 1.3rem;
+        line-height: 1;
+      }
+      .x:hover {
+        border-color: var(--gold);
+        color: var(--gold-hi);
+      }
+      body.lock {
+        overflow: hidden;
+      }
+      .sess {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.2rem;
+        padding: 0.7rem 1rem;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(10, 6, 24, 0.6);
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+      .sess b {
+        color: var(--gold-hi);
+        font:
+          700 1.3rem ui-monospace,
+          Consolas,
+          monospace;
+      }
+      .sess.low b {
+        color: #ff8fa8;
+      }
+      .dots {
+        display: flex;
+        gap: 0.5rem;
+        margin: 0 0 1.4rem;
+        padding: 0;
+        list-style: none;
+        color: var(--muted);
+        font-size: 0.88rem;
+        flex-wrap: wrap;
+      }
+      .dots li {
+        padding: 0.25rem 0.8rem;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+      }
+      .dots li.on {
+        color: #1a1230;
+        background: var(--gold);
+        border-color: var(--gold);
+        font-weight: 700;
+      }
+      .step[hidden] {
+        display: none;
+      }
+      .step h3 {
+        font: 700 1.3rem var(--display);
+        margin: 0 0 1rem;
+      }
+      .choices {
+        display: grid;
+        gap: 0.7rem;
+        margin: 0 0 1.2rem;
+      }
+      .choice {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 1rem 1.1rem;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        cursor: pointer;
+        background: rgba(10, 6, 24, 0.5);
+        transition: border-color 0.2s;
+      }
+      .choice:hover {
+        border-color: rgba(217, 183, 108, 0.6);
+      }
+      .choice:has(input:checked) {
+        border-color: var(--gold);
+        background: rgba(217, 183, 108, 0.12);
+      }
+      .choice input {
+        accent-color: var(--gold);
+      }
+      .choice b {
+        color: var(--gold-hi);
+        font-family: var(--display);
+      }
+      .field {
+        display: grid;
+        gap: 0.35rem;
+        margin: 0 0 1rem;
+        color: var(--muted);
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+      .field input,
+      .field textarea {
+        font: 400 1rem var(--body);
+        color: var(--ivory);
+        padding: 0.85rem 1rem;
+        border-radius: 12px;
+        border: 1px solid var(--line);
+        background: rgba(10, 6, 24, 0.7);
+        width: 100%;
+      }
+      .field input:focus,
+      .field textarea:focus {
+        outline: 2px solid var(--gold);
+        border-color: var(--gold);
+      }
+      .err {
+        color: #ff8fa8;
+        font-weight: 600;
+        min-height: 1.4em;
+        margin: 0.2rem 0 0.6rem;
+      }
+      .chk {
+        display: flex;
+        gap: 0.7rem;
+        align-items: flex-start;
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin: 0 0 1rem;
+      }
+      .chk input {
+        margin-top: 0.3rem;
+        accent-color: var(--gold);
+      }
+      .recap {
+        margin: 0 0 1.2rem;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 0.4rem 1.6rem;
+      }
+      .recap dt {
+        color: var(--muted);
+      }
+      .recap dd {
+        margin: 0;
+        font-weight: 700;
+      }
+      .ok {
+        border: 1px solid var(--gold);
+        border-radius: 16px;
+        padding: 1.4rem;
+        background: rgba(217, 183, 108, 0.1);
+      }
+      .ok h3 {
+        color: var(--gold-hi);
+      }
+      .ok p {
+        margin: 0.5rem 0;
+      }
+      .btn:disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
 
       /* Contact */
       .mail {
@@ -735,13 +966,17 @@ body.lock{overflow:hidden}
               <h3>Essentiel</h3>
               <p>Pour démarrer : une prestation simple, claire et rapide.</p>
               <div class="price">10 €</div>
-              <a class="btn ghost mag" href="#paiement" data-plan="Essentiel">Choisir</a>
+              <a class="btn ghost mag" href="#paiement" data-plan="Essentiel"
+                >Choisir</a
+              >
             </article>
             <article class="panel feature reveal">
               <h3>Signature</h3>
               <p>L’offre complète, avec un suivi attentif du début à la fin.</p>
               <div class="price">25 €</div>
-              <a class="btn mag" href="#paiement" data-plan="Signature">Choisir</a>
+              <a class="btn mag" href="#paiement" data-plan="Signature"
+                >Choisir</a
+              >
             </article>
             <article class="panel reveal">
               <h3>Sur mesure</h3>
@@ -768,52 +1003,55 @@ body.lock{overflow:hidden}
               </button>
             </div>
 
-            <h3>Frais et conseils</h3>
-            <ul class="tips">
+            <h3>Procédure de paiement en 8 étapes</h3>
+            <ol class="steps">
               <li>
-                <strong>Frais de réseau :</strong> ils sont à la charge de la
-                personne qui envoie et varient selon son portefeuille ou sa
-                plateforme. Vérifiez-les avant de valider. Je dois recevoir le
-                montant complet de l’offre : si les frais sont retirés du
-                montant envoyé, ajoutez-les.
+                <strong>Choisir le bon réseau</strong>
+                Sélectionnez
+                <strong
+                  style="display: inline; font: inherit; color: var(--ivory)"
+                  >Tron (TRC20)</strong
+                >. L’adresse commence par la lettre T. Les réseaux ERC20, BEP20
+                et autres ne sont pas compatibles.
               </li>
               <li>
-                <strong>Réseau :</strong> choisissez bien
-                <strong>Tron (TRC20)</strong>. Une adresse TRC20 commence par la
-                lettre T. Les réseaux ERC20, BEP20 ou autres ne fonctionnent pas
-                avec cette adresse.
+                <strong>Utiliser la bonne monnaie</strong>
+                USDT uniquement, sans autre jeton ni NFT. Les dépôts par contrat
+                intelligent ne sont pas pris en charge.
               </li>
               <li>
-                <strong>Monnaie :</strong> USDT uniquement, sans autre jeton ni
-                NFT. Les dépôts par contrat intelligent ne sont pas pris en
-                charge.
+                <strong>Vérifier l’adresse</strong>
+                Utilisez « Copier l’adresse » plutôt que de la retaper, puis
+                comparez le début (<code>TJABmf</code>) et la fin
+                (<code>rcKSNB</code>) avant de valider.
               </li>
               <li>
-                <strong>Vérifiez l’adresse :</strong> utilisez le bouton «
-                Copier l’adresse » au lieu de la retaper, puis comparez le début
-                (<code>TJABmf</code>) et la fin (<code>rcKSNB</code>) avant de
-                confirmer.
+                <strong>Prévoir les frais de réseau</strong>
+                Ils sont à votre charge et varient selon votre portefeuille ou
+                plateforme. Je dois recevoir le montant complet de l’offre : si
+                les frais sont retirés de l’envoi, ajoutez-les.
               </li>
               <li>
-                <strong>Premier paiement :</strong> pour un montant important,
-                envoyez d’abord un petit montant de test et attendez qu’il
-                arrive.
+                <strong>Faire un test</strong>
+                Pour un montant important, envoyez d’abord une petite somme et
+                attendez son arrivée.
               </li>
               <li>
-                <strong>Délai :</strong> le dépôt est généralement crédité après
-                1 confirmation du réseau, soit quelques minutes en général.
+                <strong>Attendre la confirmation</strong>
+                Le dépôt est crédité après 1 confirmation du réseau, en général
+                en quelques minutes.
               </li>
               <li>
-                <strong>Pas de remboursement automatique :</strong> une
-                transaction crypto ne peut pas être annulée. Relisez tout avant
-                d’envoyer.
+                <strong>Relire avant d’envoyer</strong>
+                Une transaction crypto est irréversible et il n’y a aucun
+                remboursement automatique.
               </li>
               <li>
-                <strong>Confirmation :</strong> après le paiement, envoyez-moi
-                l’identifiant de transaction (TXID) par email pour que je
-                confirme votre commande.
+                <strong>Envoyer le TXID</strong>
+                Après le paiement, transmettez-moi l’identifiant de transaction
+                par email pour que je confirme votre commande.
               </li>
-            </ul>
+            </ol>
           </div>
         </section>
 
@@ -836,61 +1074,177 @@ body.lock{overflow:hidden}
       </div>
     </footer>
 
-    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt" aria-hidden="true">
+    <div
+      class="modal"
+      id="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mt"
+      aria-hidden="true"
+    >
       <div class="box">
-        <button class="x" type="button" id="close" aria-label="Fermer">×</button>
+        <button class="x" type="button" id="close" aria-label="Fermer">
+          ×
+        </button>
         <h2 id="mt">Paiement en USDT</h2>
-        <div class="sess" id="sess" hidden><span>Session : fermeture automatique dans</span><b id="timer">15:00</b></div>
-        <ol class="dots" id="dots"><li class="on">1. Offre</li><li>2. Montant</li><li>3. Paiement</li><li>4. Ticket</li></ol>
-    
+        <div class="sess" id="sess" hidden>
+          <span>Session : fermeture automatique dans</span
+          ><b id="timer">15:00</b>
+        </div>
+        <ol class="dots" id="dots">
+          <li class="on">1. Offre</li>
+          <li>2. Montant</li>
+          <li>3. Paiement</li>
+          <li>4. Ticket</li>
+        </ol>
+
         <div class="step" id="st1">
           <h3>Choisissez votre offre</h3>
           <div class="choices">
-            <label class="choice"><span><input type="radio" name="plan" value="Essentiel" data-price="10"> Essentiel</span><b>10 USDT</b></label>
-            <label class="choice"><span><input type="radio" name="plan" value="Signature" data-price="25"> Signature</span><b>25 USDT</b></label>
-            <label class="choice"><span><input type="radio" name="plan" value="Sur mesure" data-price=""> Sur mesure</span><b>Devis</b></label>
+            <label class="choice"
+              ><span
+                ><input
+                  type="radio"
+                  name="plan"
+                  value="Essentiel"
+                  data-price="10"
+                />
+                Essentiel</span
+              ><b>10 USDT</b></label
+            >
+            <label class="choice"
+              ><span
+                ><input
+                  type="radio"
+                  name="plan"
+                  value="Signature"
+                  data-price="25"
+                />
+                Signature</span
+              ><b>25 USDT</b></label
+            >
+            <label class="choice"
+              ><span
+                ><input
+                  type="radio"
+                  name="plan"
+                  value="Sur mesure"
+                  data-price=""
+                />
+                Sur mesure</span
+              ><b>Devis</b></label
+            >
           </div>
           <p class="err" id="e1" role="alert"></p>
-          <button class="btn mag" type="button" id="go1">Démarrer la session (15 min)</button>
+          <button class="btn mag" type="button" id="go1">
+            Démarrer la session (15 min)
+          </button>
         </div>
-    
+
         <div class="step" id="st2" hidden>
           <h3>Saisissez le montant et votre email</h3>
-          <label class="field">Montant à envoyer (USDT)<input id="amount" type="text" inputmode="decimal" placeholder="Ex : 25" autocomplete="off"></label>
-          <label class="field">Votre adresse email (je vous réponds ici)<input id="email" type="email" placeholder="vous@exemple.com" autocomplete="email"></label>
-          <label class="field">Remarque (facultatif)<textarea id="note" rows="3" placeholder="Précisions sur votre demande"></textarea></label>
+          <label class="field"
+            >Montant à envoyer (USDT)<input
+              id="amount"
+              type="text"
+              inputmode="decimal"
+              placeholder="Ex : 25"
+              autocomplete="off"
+          /></label>
+          <label class="field"
+            >Votre adresse email (je vous réponds ici)<input
+              id="email"
+              type="email"
+              placeholder="vous@exemple.com"
+              autocomplete="email"
+          /></label>
+          <label class="field"
+            >Remarque (facultatif)<textarea
+              id="note"
+              rows="3"
+              placeholder="Précisions sur votre demande"
+            ></textarea>
+          </label>
           <p class="err" id="e2" role="alert"></p>
-          <div class="row"><button class="btn ghost" type="button" id="back2">Retour</button><button class="btn mag" type="button" id="go2">Continuer</button></div>
+          <div class="row">
+            <button class="btn ghost" type="button" id="back2">Retour</button
+            ><button class="btn mag" type="button" id="go2">Continuer</button>
+          </div>
         </div>
-    
+
         <div class="step" id="st3" hidden>
           <h3>Réglez en USDT (TRC20)</h3>
-          <dl class="recap"><dt>Monnaie</dt><dd>USDT (Tether)</dd><dt>Réseau</dt><dd>Tron (TRC20)</dd><dt>Montant</dt><dd id="recapAmt"></dd></dl>
-          <code class="addr" id="addr" aria-live="polite">•••••••••• Adresse masquée ••••••••••</code>
-          <div class="row" style="margin-top:1rem">
-            <button class="btn ghost" id="show" type="button">Afficher l’adresse</button>
-            <button class="btn" id="copy" type="button" hidden>Copier l’adresse</button>
+          <dl class="recap">
+            <dt>Monnaie</dt>
+            <dd>USDT (Tether)</dd>
+            <dt>Réseau</dt>
+            <dd>Tron (TRC20)</dd>
+            <dt>Montant</dt>
+            <dd id="recapAmt"></dd>
+          </dl>
+          <code class="addr" id="addr" aria-live="polite"
+            >•••••••••• Adresse masquée ••••••••••</code
+          >
+          <div class="row" style="margin-top: 1rem">
+            <button class="btn ghost" id="show" type="button">
+              Afficher l’adresse
+            </button>
+            <button class="btn" id="copy" type="button" hidden>
+              Copier l’adresse
+            </button>
             <span id="copy-msg" role="status" aria-live="polite"></span>
           </div>
-          <p class="warn"><strong>Envoyez uniquement de l’USDT sur le réseau Tron (TRC20).</strong> Tout autre réseau ou monnaie est perdu définitivement. Vérifiez le début (<code>TJABmf</code>) et la fin (<code>rcKSNB</code>) de l’adresse.</p>
-          <label class="field" style="margin-top:1.2rem">TXID de la transaction (facultatif)<input id="txid" type="text" placeholder="Collez le TXID après l’envoi" autocomplete="off"></label>
-          <label class="chk"><input type="checkbox" id="agree"><span>J’ai vérifié l’adresse email et le montant. Je comprends qu’il n’y a aucun remboursement possible.</span></label>
+          <p class="warn">
+            <strong
+              >Envoyez uniquement de l’USDT sur le réseau Tron (TRC20).</strong
+            >
+            Tout autre réseau ou monnaie est perdu définitivement. Vérifiez le
+            début (<code>TJABmf</code>) et la fin (<code>rcKSNB</code>) de
+            l’adresse.
+          </p>
+          <label class="field" style="margin-top: 1.2rem"
+            >TXID de la transaction (facultatif)<input
+              id="txid"
+              type="text"
+              placeholder="Collez le TXID après l’envoi"
+              autocomplete="off"
+          /></label>
+          <label class="chk"
+            ><input type="checkbox" id="agree" /><span
+              >J’ai vérifié l’adresse email et le montant. Je comprends qu’il
+              n’y a aucun remboursement possible.</span
+            ></label
+          >
           <p class="err" id="e3" role="alert"></p>
-          <div class="row"><button class="btn ghost" type="button" id="back3">Retour</button><button class="btn mag" type="button" id="submit">J’ai payé, soumettre mon ticket</button></div>
+          <div class="row">
+            <button class="btn ghost" type="button" id="back3">Retour</button
+            ><button class="btn mag" type="button" id="submit">
+              J’ai payé, soumettre mon ticket
+            </button>
+          </div>
         </div>
-    
+
         <div class="step" id="st4" hidden>
           <div class="ok" role="status">
             <h3>Votre ticket a été soumis avec succès</h3>
             <p>Montant saisi : <strong id="okAmt"></strong> USDT (TRC20).</p>
-            <p>Une réponse vous sera envoyée à : <strong id="okMail"></strong></p>
-            <p><strong>Vérifiez bien votre adresse email et le montant envoyé.</strong> Aucun remboursement n’est possible.</p>
+            <p>
+              Une réponse vous sera envoyée à : <strong id="okMail"></strong>
+            </p>
+            <p>
+              <strong
+                >Vérifiez bien votre adresse email et le montant envoyé.</strong
+              >
+              Aucun remboursement n’est possible.
+            </p>
           </div>
-          <div class="row" style="margin-top:1.2rem"><button class="btn ghost" type="button" id="done">Fermer</button></div>
+          <div class="row" style="margin-top: 1.2rem">
+            <button class="btn ghost" type="button" id="done">Fermer</button>
+          </div>
         </div>
       </div>
     </div>
-    
+
     <script>
       (function () {
         var reduce = window.matchMedia(
@@ -1025,101 +1379,241 @@ body.lock{overflow:hidden}
         }
 
         /* Paiement en fenêtre */
-var WEB3FORMS_KEY = "d1bf222f-08a2-4a48-8cec-da62ef2e911a";
-var ADDR_B64 = "VEpBQm1memRHU1g2VVFYejZoa2tWbnhEb0MxTHJjS1NOQg==";
-var DURATION = 900;
-var $ = function (id) { return document.getElementById(id); };
-var plan = null, price = "", left = 0, tick = null, sent = false, lastFocus = null;
+        var WEB3FORMS_KEY = "d1bf222f-08a2-4a48-8cec-da62ef2e911a";
+        var ADDR_B64 = "VEpBQm1memRHU1g2VVFYejZoa2tWbnhEb0MxTHJjS1NOQg==";
+        var DURATION = 900;
+        var $ = function (id) {
+          return document.getElementById(id);
+        };
+        var plan = null,
+          price = "",
+          left = 0,
+          tick = null,
+          sent = false,
+          lastFocus = null;
 
-function openModal(p) {
-  lastFocus = document.activeElement;
-  if (p) { var r = document.querySelector('input[name="plan"][value="' + p + '"]'); if (r) r.checked = true; }
-  $("modal").classList.add("open"); $("modal").setAttribute("aria-hidden", "false");
-  document.body.classList.add("lock");
-  setTimeout(function () { $("close").focus(); }, 50);
-}
-function closeModal() {
-  $("modal").classList.remove("open"); $("modal").setAttribute("aria-hidden", "true");
-  document.body.classList.remove("lock");
-  if (lastFocus) lastFocus.focus();
-}
-function step(n) {
-  for (var i = 1; i <= 4; i++) $("st" + i).hidden = i !== n;
-  [].forEach.call($("dots").children, function (li, k) { li.classList.toggle("on", k === n - 1); });
-}
-function fmt(s) { var m = Math.floor(s / 60), r = s % 60; return (m < 10 ? "0" : "") + m + ":" + (r < 10 ? "0" : "") + r; }
-function hideAddr() { $("addr").textContent = "•••••••••• Adresse masquée ••••••••••"; $("copy").hidden = true; $("show").hidden = false; $("copy-msg").textContent = ""; }
-function endSession(msg) {
-  clearInterval(tick); tick = null; $("sess").hidden = true; hideAddr();
-  ["e1","e2","e3"].forEach(function (k) { $(k).textContent = ""; });
-  $("amount").value = $("email").value = $("note").value = $("txid").value = "";
-  $("agree").checked = false; sent = false;
-  $("submit").disabled = false; $("submit").textContent = "J’ai payé, soumettre mon ticket";
-  step(1); if (msg) $("e1").textContent = msg;
-}
-function startSession() {
-  left = DURATION; $("sess").hidden = false; $("sess").classList.remove("low"); $("timer").textContent = fmt(left);
-  clearInterval(tick);
-  tick = setInterval(function () {
-    left--; $("timer").textContent = fmt(Math.max(left, 0)); $("sess").classList.toggle("low", left <= 60);
-    if (left <= 0) { endSession("Session expirée (15 min). Veuillez recommencer."); }
-  }, 1000);
-}
+        function openModal(p) {
+          lastFocus = document.activeElement;
+          if (p) {
+            var r = document.querySelector(
+              'input[name="plan"][value="' + p + '"]',
+            );
+            if (r) r.checked = true;
+          }
+          $("modal").classList.add("open");
+          $("modal").setAttribute("aria-hidden", "false");
+          document.body.classList.add("lock");
+          setTimeout(function () {
+            $("close").focus();
+          }, 50);
+        }
+        function closeModal() {
+          $("modal").classList.remove("open");
+          $("modal").setAttribute("aria-hidden", "true");
+          document.body.classList.remove("lock");
+          if (lastFocus) lastFocus.focus();
+        }
+        function step(n) {
+          for (var i = 1; i <= 4; i++) $("st" + i).hidden = i !== n;
+          [].forEach.call($("dots").children, function (li, k) {
+            li.classList.toggle("on", k === n - 1);
+          });
+        }
+        function fmt(s) {
+          var m = Math.floor(s / 60),
+            r = s % 60;
+          return (m < 10 ? "0" : "") + m + ":" + (r < 10 ? "0" : "") + r;
+        }
+        function hideAddr() {
+          $("addr").textContent = "•••••••••• Adresse masquée ••••••••••";
+          $("copy").hidden = true;
+          $("show").hidden = false;
+          $("copy-msg").textContent = "";
+        }
+        function endSession(msg) {
+          clearInterval(tick);
+          tick = null;
+          $("sess").hidden = true;
+          hideAddr();
+          ["e1", "e2", "e3"].forEach(function (k) {
+            $(k).textContent = "";
+          });
+          $("amount").value =
+            $("email").value =
+            $("note").value =
+            $("txid").value =
+              "";
+          $("agree").checked = false;
+          sent = false;
+          $("submit").disabled = false;
+          $("submit").textContent = "J’ai payé, soumettre mon ticket";
+          step(1);
+          if (msg) $("e1").textContent = msg;
+        }
+        function startSession() {
+          left = DURATION;
+          $("sess").hidden = false;
+          $("sess").classList.remove("low");
+          $("timer").textContent = fmt(left);
+          clearInterval(tick);
+          tick = setInterval(function () {
+            left--;
+            $("timer").textContent = fmt(Math.max(left, 0));
+            $("sess").classList.toggle("low", left <= 60);
+            if (left <= 0) {
+              endSession("Session expirée (15 min). Veuillez recommencer.");
+            }
+          }, 1000);
+        }
 
-document.querySelectorAll("[data-plan]").forEach(function (a) {
-  a.addEventListener("click", function (e) { e.preventDefault(); openModal(a.dataset.plan); });
-});
-$("openPay").addEventListener("click", function () { openModal(); });
-$("close").addEventListener("click", closeModal);
-$("done").addEventListener("click", function () { closeModal(); endSession(); });
-$("modal").addEventListener("click", function (e) { if (e.target === $("modal")) closeModal(); });
-document.addEventListener("keydown", function (e) { if (e.key === "Escape" && $("modal").classList.contains("open")) closeModal(); });
+        document.querySelectorAll("[data-plan]").forEach(function (a) {
+          a.addEventListener("click", function (e) {
+            e.preventDefault();
+            openModal(a.dataset.plan);
+          });
+        });
+        $("openPay").addEventListener("click", function () {
+          openModal();
+        });
+        $("close").addEventListener("click", closeModal);
+        $("done").addEventListener("click", function () {
+          closeModal();
+          endSession();
+        });
+        $("modal").addEventListener("click", function (e) {
+          if (e.target === $("modal")) closeModal();
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && $("modal").classList.contains("open"))
+            closeModal();
+        });
 
-$("go1").addEventListener("click", function () {
-  var r = document.querySelector('input[name="plan"]:checked');
-  if (!r) { $("e1").textContent = "Choisissez une offre."; return; }
-  plan = r.value; price = r.dataset.price; $("e1").textContent = ""; $("amount").value = price;
-  startSession(); step(2);
-});
-$("back2").addEventListener("click", function () { step(1); });
-$("back3").addEventListener("click", function () { hideAddr(); step(2); });
-$("go2").addEventListener("click", function () {
-  var a = $("amount").value.trim().replace(",", "."), m = $("email").value.trim();
-  if (!/^\d+(\.\d{1,6})?$/.test(a) || parseFloat(a) <= 0) { $("e2").textContent = "Saisissez un montant valide (ex : 25)."; return; }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m)) { $("e2").textContent = "Saisissez une adresse email valide."; return; }
-  if (price && parseFloat(a) < parseFloat(price)) { $("e2").textContent = "Montant minimum pour cette offre : " + price + " USDT."; return; }
-  $("e2").textContent = ""; $("amount").value = a; $("recapAmt").textContent = a + " USDT"; step(3);
-});
-$("show").addEventListener("click", function () { $("addr").textContent = atob(ADDR_B64); $("show").hidden = true; $("copy").hidden = false; });
-$("copy").addEventListener("click", function () {
-  var t = $("addr").textContent.trim();
-  function d(ok) { $("copy-msg").textContent = ok ? "Adresse copiée" : "Copie impossible, sélectionnez l’adresse à la main"; }
-  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { d(true); }, function () { d(false); }); else d(false);
-});
-$("submit").addEventListener("click", function () {
-  if (sent) return;
-  if (/^COLLE/.test(WEB3FORMS_KEY)) { $("e3").textContent = "Clé Web3Forms non configurée dans index.html."; return; }
-  if (!$("agree").checked) { $("e3").textContent = "Cochez la case de confirmation."; return; }
-  var btn = $("submit"), amt = $("amount").value, mail = $("email").value.trim();
-  btn.disabled = true; btn.textContent = "Envoi en cours…"; $("e3").textContent = "";
-  fetch("https://api.web3forms.com/submit", {
-    method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify({
-      access_key: WEB3FORMS_KEY, subject: "Nouveau ticket vctr_on : " + plan + " : " + amt + " USDT",
-      from_name: "Site vctr_on", email: mail, offre: plan, montant_usdt: amt, reseau: "Tron (TRC20)",
-      email_client: mail, remarque: $("note").value.trim() || "(aucune)", txid: $("txid").value.trim() || "(non fourni)",
-      date: new Date().toLocaleString("fr-FR"),
-      confirmation: "Le client a vérifié email + montant et accepté : aucun remboursement."
-    })
-  }).then(function (r) { return r.json(); }).then(function (j) {
-    if (!j.success) throw new Error(j.message || "refusé");
-    sent = true; clearInterval(tick); $("sess").hidden = true; hideAddr();
-    $("okAmt").textContent = amt; $("okMail").textContent = mail; step(4);
-  }).catch(function (err) {
-    $("e3").textContent = "Envoi impossible (" + ((err && err.message) || "réseau") + "). Réessayez ou écrivez-moi par email.";
-    btn.disabled = false; btn.textContent = "J’ai payé, soumettre mon ticket";
-  });
-});
+        $("go1").addEventListener("click", function () {
+          var r = document.querySelector('input[name="plan"]:checked');
+          if (!r) {
+            $("e1").textContent = "Choisissez une offre.";
+            return;
+          }
+          plan = r.value;
+          price = r.dataset.price;
+          $("e1").textContent = "";
+          $("amount").value = price;
+          startSession();
+          step(2);
+        });
+        $("back2").addEventListener("click", function () {
+          step(1);
+        });
+        $("back3").addEventListener("click", function () {
+          hideAddr();
+          step(2);
+        });
+        $("go2").addEventListener("click", function () {
+          var a = $("amount").value.trim().replace(",", "."),
+            m = $("email").value.trim();
+          if (!/^\d+(\.\d{1,6})?$/.test(a) || parseFloat(a) <= 0) {
+            $("e2").textContent = "Saisissez un montant valide (ex : 25).";
+            return;
+          }
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m)) {
+            $("e2").textContent = "Saisissez une adresse email valide.";
+            return;
+          }
+          if (price && parseFloat(a) < parseFloat(price)) {
+            $("e2").textContent =
+              "Montant minimum pour cette offre : " + price + " USDT.";
+            return;
+          }
+          $("e2").textContent = "";
+          $("amount").value = a;
+          $("recapAmt").textContent = a + " USDT";
+          step(3);
+        });
+        $("show").addEventListener("click", function () {
+          $("addr").textContent = atob(ADDR_B64);
+          $("show").hidden = true;
+          $("copy").hidden = false;
+        });
+        $("copy").addEventListener("click", function () {
+          var t = $("addr").textContent.trim();
+          function d(ok) {
+            $("copy-msg").textContent = ok
+              ? "Adresse copiée"
+              : "Copie impossible, sélectionnez l’adresse à la main";
+          }
+          if (navigator.clipboard && navigator.clipboard.writeText)
+            navigator.clipboard.writeText(t).then(
+              function () {
+                d(true);
+              },
+              function () {
+                d(false);
+              },
+            );
+          else d(false);
+        });
+        $("submit").addEventListener("click", function () {
+          if (sent) return;
+          if (/^COLLE/.test(WEB3FORMS_KEY)) {
+            $("e3").textContent =
+              "Clé Web3Forms non configurée dans index.html.";
+            return;
+          }
+          if (!$("agree").checked) {
+            $("e3").textContent = "Cochez la case de confirmation.";
+            return;
+          }
+          var btn = $("submit"),
+            amt = $("amount").value,
+            mail = $("email").value.trim();
+          btn.disabled = true;
+          btn.textContent = "Envoi en cours…";
+          $("e3").textContent = "";
+          fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              access_key: WEB3FORMS_KEY,
+              subject:
+                "Nouveau ticket vctr_on : " + plan + " : " + amt + " USDT",
+              from_name: "Site vctr_on",
+              email: mail,
+              offre: plan,
+              montant_usdt: amt,
+              reseau: "Tron (TRC20)",
+              email_client: mail,
+              remarque: $("note").value.trim() || "(aucune)",
+              txid: $("txid").value.trim() || "(non fourni)",
+              date: new Date().toLocaleString("fr-FR"),
+              confirmation:
+                "Le client a vérifié email + montant et accepté : aucun remboursement.",
+            }),
+          })
+            .then(function (r) {
+              return r.json();
+            })
+            .then(function (j) {
+              if (!j.success) throw new Error(j.message || "refusé");
+              sent = true;
+              clearInterval(tick);
+              $("sess").hidden = true;
+              hideAddr();
+              $("okAmt").textContent = amt;
+              $("okMail").textContent = mail;
+              step(4);
+            })
+            .catch(function (err) {
+              $("e3").textContent =
+                "Envoi impossible (" +
+                ((err && err.message) || "réseau") +
+                "). Réessayez ou écrivez-moi par email.";
+              btn.disabled = false;
+              btn.textContent = "J’ai payé, soumettre mon ticket";
+            });
+        });
 
         /* Constellation réseau */
         var c = document.getElementById("net"),
