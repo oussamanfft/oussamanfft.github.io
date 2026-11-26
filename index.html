@@ -99,6 +99,23 @@
 
   .pay { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1rem; }
   .note { color: var(--muted); font-size: .92rem; margin-top: 1.2rem; max-width: 36rem; }
+  .wallet {
+    background: var(--surface); border: 2px solid var(--line); border-radius: 18px;
+    padding: 1.4rem; max-width: 40rem;
+  }
+  .wallet dl { margin: 0 0 1.2rem; display: grid; grid-template-columns: auto 1fr; gap: .4rem 1.2rem; }
+  .wallet dt { color: var(--muted); }
+  .wallet dd { margin: 0; font-weight: 600; }
+  .addr {
+    display: block; word-break: break-all; padding: .9rem 1rem; border-radius: 12px;
+    background: var(--bg); border: 1px solid var(--line);
+    font: 600 1rem/1.4 ui-monospace, "Cascadia Mono", Consolas, monospace; user-select: all;
+  }
+  .warn { margin: 1rem 0 0; font-size: .95rem; color: var(--muted); }
+  .warn strong { color: var(--ink); }
+  .wallet h3 { font: 800 1.15rem var(--display); margin: 1.6rem 0 .6rem; }
+  .tips { margin: 0; padding-left: 1.2rem; display: grid; gap: .6rem; color: var(--muted); font-size: .97rem; }
+  .tips strong { color: var(--ink); }
 
   footer { padding: 2.5rem 0 3rem; color: var(--muted); font-size: .95rem; border-top: 1px solid var(--line); }
 
@@ -143,12 +160,12 @@
       <div class="offer">
         <div><h3>Offre de départ</h3><p>Une description courte de ce que la personne obtient.</p></div>
         <div class="price">10 €</div>
-        <a class="btn" href="https://REMPLACE-PAR-TON-LIEN-DE-PAIEMENT" target="_blank" rel="noopener">Choisir</a>
+        <a class="btn" href="#paiement">Choisir</a>
       </div>
       <div class="offer">
         <div><h3>Offre standard</h3><p>Pour ceux qui veulent aller plus loin.</p></div>
         <div class="price">25 €</div>
-        <a class="btn" href="https://REMPLACE-PAR-TON-LIEN-DE-PAIEMENT" target="_blank" rel="noopener">Choisir</a>
+        <a class="btn" href="#paiement">Choisir</a>
       </div>
       <div class="offer">
         <div><h3>Sur mesure</h3><p>Une demande précise : écris-moi, on en parle.</p></div>
@@ -158,24 +175,42 @@
     </section>
 
     <section id="paiement">
-      <h2>Moyens de paiement</h2>
-      <p class="lead">Chaque bouton ouvre la page de paiement sécurisée de ton prestataire. Aucune donnée de carte ne passe par ce site.</p>
-      <div class="pay">
-        <a class="btn" href="https://REMPLACE-PAR-TON-LIEN-PAYPAL" target="_blank" rel="noopener">Payer avec PayPal</a>
-        <a class="btn" href="https://REMPLACE-PAR-TON-LIEN-STRIPE" target="_blank" rel="noopener">Payer par carte</a>
-        <a class="btn ghost" href="https://REMPLACE-PAR-TON-LIEN-KOFI" target="_blank" rel="noopener">Soutenir sur Ko-fi</a>
+      <h2>Paiement en USDT</h2>
+      <p class="lead">Le paiement se fait en crypto-monnaie, directement vers mon portefeuille.</p>
+      <div class="wallet">
+        <dl>
+          <dt>Monnaie</dt><dd>USDT (Tether)</dd>
+          <dt>Réseau</dt><dd>Tron (TRC20)</dd>
+        </dl>
+        <code class="addr" id="addr">TJABmfzdGSX6UQXz6hkkVnxDoC1LrcKSNB</code>
+        <div class="row" style="margin-top:1rem">
+          <button class="btn" id="copy" type="button">Copier l’adresse</button>
+          <span id="copy-msg" role="status" aria-live="polite"></span>
+        </div>
+        <p class="warn"><strong>Envoie uniquement de l’USDT sur le réseau Tron (TRC20).</strong> Un envoi sur un autre réseau ou avec une autre monnaie est perdu définitivement.</p>
+
+        <h3>Frais et conseils</h3>
+        <ul class="tips">
+          <li><strong>Frais de réseau :</strong> ils sont à la charge de la personne qui envoie et varient selon ton portefeuille ou ta plateforme. Vérifie-les avant de valider. Je dois recevoir le montant complet de l’offre : si les frais sont retirés du montant envoyé, ajoute-les.</li>
+          <li><strong>Réseau :</strong> choisis bien <strong>Tron (TRC20)</strong>. Une adresse TRC20 commence par la lettre T. Les réseaux ERC20, BEP20 ou autres ne marchent pas avec cette adresse.</li>
+          <li><strong>Monnaie :</strong> USDT uniquement, sans autre jeton ni NFT. Les dépôts par contrat intelligent ne sont pas pris en charge.</li>
+          <li><strong>Vérifie l’adresse :</strong> utilise le bouton « Copier l’adresse » au lieu de la retaper, puis compare le début (<code>TJABmf</code>) et la fin (<code>rcKSNB</code>) avant de confirmer.</li>
+          <li><strong>Premier paiement :</strong> pour un montant important, envoie d’abord un petit montant de test et attends qu’il arrive.</li>
+          <li><strong>Délai :</strong> le dépôt est généralement crédité après 1 confirmation du réseau, soit quelques minutes en général.</li>
+          <li><strong>Pas de remboursement automatique :</strong> une transaction crypto ne peut pas être annulée. Relis tout avant d’envoyer.</li>
+          <li><strong>Confirmation :</strong> après le paiement, envoie-moi l’identifiant de transaction (TXID) par email pour que je confirme ta commande.</li>
+        </ul>
       </div>
-      <p class="note">Garde seulement les boutons dont tu as réellement un compte, et supprime les autres.</p>
     </section>
 
     <section id="contact">
       <h2>Contact</h2>
       <p class="lead">Une question ou une demande ? Écris-moi.</p>
-      <a class="btn" href="mailto:ton-email@exemple.com">ton-email@exemple.com</a>
+      <a class="btn" href="mailto:o.contact.n@gmail.com">o.contact.n@gmail.com</a>
     </section>
   </main>
 
-  <footer>© <span id="year"></span> vctr_on</footer>
+  <footer>© <span id="year"></span> vctr_on. Made by Oussama NEFFATI. Tous droits réservés.</footer>
 </div>
 
 <script>
@@ -190,6 +225,16 @@
   });
 
   document.getElementById("year").textContent = new Date().getFullYear();
+
+  var copyBtn = document.getElementById("copy");
+  var copyMsg = document.getElementById("copy-msg");
+  copyBtn.addEventListener("click", function () {
+    var text = document.getElementById("addr").textContent.trim();
+    function done(ok) { copyMsg.textContent = ok ? "Adresse copiée" : "Copie impossible, sélectionne l’adresse à la main"; }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+    } else { done(false); }
+  });
 </script>
 </body>
 </html>
