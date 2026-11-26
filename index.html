@@ -544,6 +544,7 @@
       }
 
       /* Fenêtre de paiement */
+.modal [hidden],.sess[hidden]{display:none!important}
 /* Fenêtre (modale) */
 .modal{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:1rem;
   background:rgba(10,6,24,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
@@ -1097,6 +1098,7 @@ $("copy").addEventListener("click", function () {
 });
 $("submit").addEventListener("click", function () {
   if (sent) return;
+  if (/^COLLE/.test(WEB3FORMS_KEY)) { $("e3").textContent = "Clé Web3Forms non configurée dans index.html."; return; }
   if (!$("agree").checked) { $("e3").textContent = "Cochez la case de confirmation."; return; }
   var btn = $("submit"), amt = $("amount").value, mail = $("email").value.trim();
   btn.disabled = true; btn.textContent = "Envoi en cours…"; $("e3").textContent = "";
@@ -1110,11 +1112,11 @@ $("submit").addEventListener("click", function () {
       confirmation: "Le client a vérifié email + montant et accepté : aucun remboursement."
     })
   }).then(function (r) { return r.json(); }).then(function (j) {
-    if (!j.success) throw 0;
+    if (!j.success) throw new Error(j.message || "refusé");
     sent = true; clearInterval(tick); $("sess").hidden = true; hideAddr();
     $("okAmt").textContent = amt; $("okMail").textContent = mail; step(4);
-  }).catch(function () {
-    $("e3").textContent = "Envoi impossible. Réessayez ou écrivez-moi par email.";
+  }).catch(function (err) {
+    $("e3").textContent = "Envoi impossible (" + ((err && err.message) || "réseau") + "). Réessayez ou écrivez-moi par email.";
     btn.disabled = false; btn.textContent = "J’ai payé, soumettre mon ticket";
   });
 });
